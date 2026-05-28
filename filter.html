@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آرشیو و فیلتر پیشرفته | ViraAnime</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="menu-toggle" id="mobile-menu-icon"><i class='bx bx-menu'></i></div>
+        <div class="logo">Vira<span>Anime</span></div>
+        <nav class="nav-menu" id="nav-menu-container">
+            <a href="index.html" class="nav-link"><i class='bx bx-home-alt-2'></i> خانه</a>
+            <a href="filter.html" class="nav-link active"><i class='bx bx-compass'></i> کشف انیمه</a>
+            <a href="filter.html?genre=اکشن" class="nav-link"><i class='bx bx-star'></i> انیمه‌های اکشن</a>
+            <a href="filter.html?type=سینمایی" class="nav-link"><i class='bx bx-movie-play'></i> سینمایی‌ها</a>
+        </nav>
+        <div class="header-left">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="جستجو...">
+                <button id="search-btn"><i class='bx bx-search'></i></button>
+            </div>
+            <a href="auth.html" class="user-auth-btn"><i class='bx bx-user-circle'></i> <span>ورود / ثبت‌نام</span></a>
+        </div>
+    </header>
+
+    <section class="main-container">
+        <div class="filter-box-wrapper">
+            <h3><i class='bx bx-filter-alt'></i> فیلتر پیشرفته</h3>
+            <div class="filter-selectors-grid">
+                <div class="filter-group">
+                    <label>نوع اثر:</label>
+                    <select id="filter-type">
+                        <option value="all">همه موارد</option>
+                        <option value="سریالی">سریالی</option>
+                        <option value="سینمایی">سینمایی</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>وضعیت پخش:</label>
+                    <select id="filter-status">
+                        <option value="all">همه موارد</option>
+                        <option value="در حال پخش">در حال پخش</option>
+                        <option value="اتمام یافته">اتمام یافته</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>ژانر:</label>
+                    <select id="filter-genre">
+                        <option value="all">همه ژانرها</option>
+                        <option value="اکشن">اکشن</option>
+                        <option value="فانتزی">فانتزی</option>
+                        <option value="درام">درام</option>
+                        <option value="ماوراءطبیعی">ماوراءطبیعی</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-primary" id="apply-filter-btn">اعمال فیلترها</button>
+        </div>
+    </section>
+
+    <main class="main-container">
+        <div class="section-header">
+            <h2><i class='bx bx-grid-alt'></i> نتایج آرشیو</h2>
+            <span id="results-count-text" style="color: var(--blue-neon); font-weight: bold;">0 انیمه</span>
+        </div>
+        <div class="anime-grid" id="filter-results-grid"></div>
+    </main>
+
+    <script src="db.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // فعالسازی منوی همبرگری در صفحه فیلتر
+            const toggle = document.getElementById("mobile-menu-icon");
+            const menu = document.getElementById("nav-menu-container");
+            if (toggle && menu) {
+                toggle.addEventListener("click", () => {
+                    menu.classList.toggle("active");
+                    toggle.querySelector("i").className = menu.classList.contains("active") ? "bx bx-x" : "bx bx-menu";
+                });
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQ = urlParams.get('search') || "";
+            const genreQ = urlParams.get('genre') || "all";
+            const typeQ = urlParams.get('type') || "all";
+            
+            if(genreQ !== "all") document.getElementById("filter-genre").value = genreQ;
+            if(typeQ !== "all") document.getElementById("filter-type").value = typeQ;
+            if(searchQ !== "") document.getElementById("search-input").value = searchQ;
+
+            performFilter(searchQ, typeQ, "all", genreQ);
+
+            document.getElementById("apply-filter-btn").addEventListener("click", () => {
+                performFilter(
+                    document.getElementById("search-input").value,
+                    document.getElementById("filter-type").value,
+                    document.getElementById("filter-status").value,
+                    document.getElementById("filter-genre").value
+                );
+            });
+            
+            // سرچ باکس هدر صفحه فیلتر
+            document.getElementById("search-btn").addEventListener("click", () => {
+                performFilter(document.getElementById("search-input").value, "all", "all", "all");
+            });
+        });
+
+        function performFilter(search, type, status, genre) {
+            const grid = document.getElementById("filter-results-grid");
+            grid.innerHTML = "";
+
+            const filtered = animeDatabase.filter(anime => {
+                const mSearch = search === "" || anime.title.toLowerCase().includes(search.toLowerCase()) || anime.faTitle.includes(search);
+                const mType = type === "all" || anime.type === type;
+                const mStatus = status === "all" || anime.status === status;
+                const mGenre = genre === "all" || anime.genres.includes(genre);
+                return mSearch && mType && mStatus && mGenre;
+            });
+
+            document.getElementById("results-count-text").innerText = `${filtered.length} انیمه پیدا شد`;
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<p style="color:var(--text-gray); grid-column:1/-1; text-align:center; padding:40px;">موردی یافت نشد.</p>`;
+                return;
+            }
+
+            filtered.forEach(anime => {
+                const card = document.createElement("div");
+                card.className = "anime-card";
+                card.onclick = () => window.location.href = `anime.html?id=${anime.id}`;
+                let gHtml = "";
+                anime.genres.forEach(g => gHtml += `<span>${g}</span>`);
+                card.innerHTML = `
+                    <div class="card-thumb"><img src="${anime.poster}"><span class="badge-ep">${anime.type}</span></div>
+                    <div class="card-body"><h3>${anime.title}</h3><div class="card-genres">${gHtml}</div></div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>

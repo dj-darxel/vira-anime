@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پخش و دانلود انیمه | ViraAnime</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="menu-toggle" id="mobile-menu-icon"><i class='bx bx-menu'></i></div>
+        <div class="logo" onclick="window.location.href='index.html'">Vira<span>Anime</span></div>
+        <nav class="nav-menu" id="nav-menu-container">
+            <a href="index.html" class="nav-link"><i class='bx bx-home-alt-2'></i> خانه</a>
+            <a href="admin.html" class="nav-link"><i class='bx bx-shield-quarter'></i> پنل مدیریت (ادمین)</a>
+        </nav>
+        <div class="header-left">
+            <a href="index.html" class="btn-secondary"><i class='bx bx-arrow-back'></i> بازگشت</a>
+        </div>
+    </header>
+
+    <section class="anime-single-banner" style="position:relative; padding: 60px 0; overflow:hidden;">
+        <div class="banner-blur-bg" id="anime-large-banner" style="position:absolute; top:0; left:0; width:100%; height:100%; background-size:cover; background-position:center; filter:blur(40px); opacity:0.25; z-index:-2;"></div>
+        <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to top, var(--bg-main), transparent); z-index:-1;"></div>
+        
+        <div class="main-container anime-details-container" style="display:flex; gap:40px; align-items:center;">
+            <div class="anime-poster-wrapper" style="width:240px; height:340px; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.5); border:1px solid var(--glass-border); flex-shrink:0;">
+                <img src="" id="anime-poster" alt="کاور" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div class="anime-info-wrapper">
+                <h1 id="anime-title" style="font-size:36px; margin-bottom:10px; font-weight:900;">نام انیمه</h1>
+                <h2 id="anime-fa-title" style="font-size:20px; color:var(--purple-neon); margin-bottom:20px; font-weight:700;">نام فارسی</h2>
+                
+                <div class="anime-stats" style="display:flex; gap:20px; margin-bottom:20px; color:var(--text-gray); font-size:14px; flex-wrap:wrap;">
+                    <span><i class='bx bxs-star text-gold'></i> <b id="anime-rating" style="color:white;">0.0</b></span>
+                    <span id="anime-type">سریالی</span>
+                    <span id="anime-year">۲۰۲۶</span>
+                    <span id="anime-status" style="color:var(--blue-neon);">در حال پخش</span>
+                    <span id="anime-audio-badge" style="background:rgba(168,85,247,0.2); color:white; padding:2px 8px; border-radius:6px; font-size:12px;">وضعیت صوت</span>
+                </div>
+
+                <div class="card-genres" id="anime-genres" style="margin-bottom:20px;"></div>
+                <p id="anime-description" style="color:#cbd5e1; line-height:1.8; font-size:15px; text-align:justify; max-width:900px;">خلاصه داستان...</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-container anime-player-section">
+        
+        <div class="player-main-box">
+            <div class="custom-player-wrapper" id="player-wrapper" style="position:relative; background:#000; border-radius:16px; overflow:hidden; border:1px solid var(--glass-border); aspect-ratio:16/9;">
+                <video id="vira-player" style="width:100%; height:100%; display:block;">
+                    <source id="player-src" src="" type="video/mp4">
+                </video>
+                
+                <div class="video-controls" style="position:absolute; bottom:0; left:0; width:100%; background:linear-gradient(transparent, rgba(0,0,0,0.9)); padding:20px; display:flex; flex-direction:column; gap:10px; opacity:0; z-index:10;">
+                    <div class="controls-timeline" id="timeline" style="width:100%; height:5px; background:rgba(255,255,255,0.2); border-radius:3px; cursor:pointer; position:relative;">
+                        <div class="timeline-progress" id="progress" style="width:0%; height:100%; background:var(--blue-neon); border-radius:3px; box-shadow:0 0 10px var(--blue-neon);"></div>
+                    </div>
+                    <div class="controls-buttons" style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <button id="play-btn" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;"><i class='bx bx-play'></i></button>
+                            <button id="skip-btn" style="background:none; border:none; color:var(--text-gray); font-size:20px; cursor:pointer;"><i class='bx bx-fast-forward'></i></button>
+                            <span id="time-txt" style="font-size:13px; color:var(--text-gray);">00:00 / 00:00</span>
+                        </div>
+                        <div>
+                            <button id="fullscreen-btn" style="background:none; border:none; color:white; font-size:22px; cursor:pointer;"><i class='bx bx-fullscreen'></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:15px; display:flex; justify-content:space-between; align-items:center;">
+                <h3 id="playing-episode-title" style="font-size:16px; font-weight:bold;">انتخاب قسمت...</h3>
+            </div>
+
+            <div class="download-section-box">
+                <h3><i class='bx bx-download'></i> لینک‌های دانلود مستقیم این قسمت</h3>
+                <div id="download-links-container">
+                    </div>
+            </div>
+        </div>
+
+        <div class="episodes-side-box" style="background:var(--bg-card); border:1px solid var(--glass-border); padding:25px; border-radius:20px; height:fit-content;">
+            <h3 style="font-size:16px; margin-bottom:20px; border-bottom:1px solid var(--glass-border); padding-bottom:15px; display:flex; justify-content:space-between;">
+                <span><i class='bx bx-list-ol' style="color:var(--purple-neon)"></i> لیست قسمت‌ها</span>
+            </h3>
+            <div class="episodes-buttons-grid" id="episodes-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(55px, 1fr)); gap:10px;">
+                </div>
+        </div>
+
+    </main>
+
+    <footer class="main-footer" style="text-align:center; padding:30px 0; color:var(--text-gray); border-top:1px solid var(--glass-border); margin-top:5px;">
+        <p>© ۲۰۲۶ ViraAnime. سیستم پخش هوشمند و توزیع فرمت دانلود کلاینت.</p>
+    </footer>
+
+    <script src="db.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const animeId = urlParams.get('id') || 1;
+            const anime = await getAnimeById(animeId);
+
+            if (anime) {
+                renderAnimeDetails(anime);
+                setupPlayerInteractions();
+            }
+            setupMobileMenu();
+        });
+
+        // رندر و پیاده‌سازی اطلاعات پویا صفحه پخش و دانلود مستقیم
+        function renderAnimeDetails(anime) {
+            document.getElementById("anime-title").innerText = anime.title;
+            document.getElementById("anime-fa-title").innerText = anime.faTitle;
+            document.getElementById("anime-rating").innerText = anime.rating;
+            document.getElementById("anime-type").innerText = anime.type;
+            document.getElementById("anime-year").innerText = anime.year;
+            document.getElementById("anime-status").innerText = anime.status;
+            document.getElementById("anime-description").innerText = anime.description;
+            document.getElementById("anime-poster").src = anime.poster;
+            document.getElementById("anime-large-banner").style.backgroundImage = `url('${anime.banner}')`;
+
+            const audioText = anime.audio === "both" ? "دوبله + زیرنویس" : (anime.audio === "dubbed" ? "دوبله فارسی" : "زیرنویس فارسی");
+            document.getElementById("anime-audio-badge").innerText = audioText;
+
+            const genresBox = document.getElementById("anime-genres");
+            genresBox.innerHTML = "";
+            anime.genres.forEach(g => { genresBox.innerHTML += `<span>${g}</span>`; });
+
+            // رندر دکمه‌های شماره قسمت‌ها
+            const epGrid = document.getElementById("episodes-grid");
+            epGrid.innerHTML = "";
+
+            if(!anime.episodes || anime.episodes.length === 0) {
+                epGrid.innerHTML = "<p style='font-size:12px; color:var(--text-gray); grid-column:1/-1;'>قسمتی برای این انیمه آپلود نشده است.</p>";
+                document.getElementById("download-links-container").innerHTML = "<p style='font-size:13px; color:var(--text-gray);'>لینکی موجود نیست.</p>";
+                return;
+            }
+
+            anime.episodes.forEach((ep, index) => {
+                const btn = document.createElement("button");
+                // استایل‌دهی مستقیم دکمه شماره‌ها جهت تطابق کامل با استایل‌شیت
+                btn.style.cssText = "background:rgba(255,255,255,0.03); border:1px solid var(--glass-border); color:white; padding:12px 0; border-radius:8px; font-weight:bold; cursor:pointer;";
+                btn.innerText = ep.number;
+                
+                if(index === 0) {
+                    btn.style.borderColor = "var(--blue-neon)";
+                    btn.style.background = "rgba(6,182,212,0.1)";
+                    loadEpisodeData(ep, anime.title);
+                }
+
+                btn.onclick = () => {
+                    document.querySelectorAll("#episodes-grid button").forEach(b => {
+                        b.style.borderColor = "var(--glass-border)";
+                        b.style.background = "rgba(255,255,255,0.03)";
+                    });
+                    btn.style.borderColor = "var(--blue-neon)";
+                    btn.style.background = "rgba(6,182,212,0.1)";
+                    loadEpisodeData(ep, anime.title);
+                };
+
+                epGrid.appendChild(btn);
+            });
+        }
+
+        // بارگذاری سورس ویدیو و مدیریت هوشمند فیلد دانلود (بدون ارور در صورت نبودن لینک)
+        function loadEpisodeData(episode, animeName) {
+            const video = document.getElementById("vira-player");
+            const src = document.getElementById("player-src");
+            const dlContainer = document.getElementById("download-links-container");
+
+            src.src = episode.streamUrl;
+            document.getElementById("playing-episode-title").innerText = `در حال پخش: قسمت ${episode.number} انیمه ${animeName}`;
+            video.load();
+
+            // پردازش دکمه دانلود (غیراجباری)
+            dlContainer.innerHTML = "";
+            if (episode.downloadUrl && episode.downloadUrl.trim() !== "") {
+                dlContainer.innerHTML = `
+                    <div class="download-row">
+                        <span><i class='bx bx-file-blank' style='color:var(--blue-neon);'></i> کیفیت خارق‌العاده عالی (فرمت MP4)</span>
+                        <a href="${episode.downloadUrl}" target="_blank" class="btn-secondary" style="padding:8px 18px; font-size:13px;"><i class='bx bx-cloud-download'></i> دانلود مستقیم لینک</a>
+                    </div>
+                `;
+            } else {
+                dlContainer.innerHTML = `
+                    <p style="color:var(--text-gray); font-size:13.5px;"><i class='bx bx-info-circle' style='color:var(--purple-neon);'></i> برای این قسمت لینک دانلود مستقیم ثبت نشده است (صرفاً قابلیت پخش آنلاین فعال است).</p>
+                `;
+            }
+        }
+
+        // اینترفیس و منطق داخلی پلیر اختصاصی (هوور، تایم‌لاین و فول‌اسکرین)
+        function setupPlayerInteractions() {
+            const wrapper = document.getElementById("player-wrapper");
+            const controls = wrapper.querySelector(".video-controls");
+            const video = document.getElementById("vira-player");
+            const playBtn = document.getElementById("play-btn");
+            const skipBtn = document.getElementById("skip-btn");
+            const fsBtn = document.getElementById("fullscreen-btn");
+            const timeline = document.getElementById("timeline");
+            const progress = document.getElementById("progress");
+            const timeTxt = document.getElementById("time-txt");
+
+            // افکت هوور برای نمایش کنترلرها
+            wrapper.addEventListener("mouseenter", () => controls.style.opacity = "1");
+            wrapper.addEventListener("mouseleave", () => controls.style.opacity = "0");
+
+            playBtn.addEventListener("click", () => {
+                if(video.paused) { video.play(); playBtn.innerHTML = "<i class='bx bx-pause'></i>"; }
+                else { video.pause(); playBtn.innerHTML = "<i class='bx bx-play'></i>"; }
+            });
+
+            video.addEventListener("timeupdate", () => {
+                const pct = (video.currentTime / video.duration) * 100;
+                progress.style.width = `${pct}%`;
+                let curM = Math.floor(video.currentTime / 60).toString().padStart(2, '0');
+                let curS = Math.floor(video.currentTime % 60).toString().padStart(2, '0');
+                let durM = Math.floor(video.duration || 0).toString().padStart(2, '0');
+                let durS = Math.floor((video.duration || 0) % 60).toString().padStart(2, '0');
+                timeTxt.innerText = `${curM}:${curS} / ${durM}:${durS}`;
+            });
+
+            timeline.addEventListener("click", (e) => {
+                const rect = timeline.getBoundingClientRect();
+                video.currentTime = ((e.clientX - rect.left) / rect.width) * video.duration;
+            });
+
+            skipBtn.addEventListener("click", () => video.currentTime += 10);
+            fsBtn.addEventListener("click", () => {
+                if (!document.fullscreenElement) wrapper.requestFullscreen().catch(() => {});
+                else document.exitFullscreen();
+            });
+        }
+
+        function setupMobileMenu() {
+            const toggle = document.getElementById("mobile-menu-icon");
+            const menu = document.getElementById("nav-menu-container");
+            if (toggle && menu) toggle.addEventListener("click", () => menu.classList.toggle("active"));
+        }
+    </script>
+</body>
+</html>

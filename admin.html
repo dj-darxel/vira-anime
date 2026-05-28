@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت ویرا انیمه | ViraAnime</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* استایل‌های اختصاصی فرم لاگین گلس‌مورفیسم */
+        .login-wrapper { display: flex; justify-content: center; align-items: center; min-height: 80vh; }
+        .login-card { background: var(--bg-card); border: 1px solid var(--glass-border); padding: 40px; border-radius: 20px; width: 100%; max-width: 420px; backdrop-filter: blur(10px); }
+        .login-card h2 { text-align: center; margin-bottom: 30px; font-weight: 800; color: var(--purple-neon); }
+        .login-card .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .login-card input { background: #0d0f17; border: 1px solid var(--glass-border); padding: 14px; border-radius: 10px; color: white; outline: none; text-align: center; font-size: 16px; }
+        .login-card input:focus { border-color: var(--blue-neon); }
+        .login-card button { width: 100%; padding: 14px; margin-top: 10px; font-size: 16px; }
+        .admin-panel-container { display: none; } /* مخفی بودن پنل قبل لاگین */
+    </style>
+</head>
+<body>
+
+    <!-- هدر ساده پنل مدیریت -->
+    <header class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">Vira<span>Anime</span> <small style="font-size:12px; color:var(--text-gray);">[پنل مدیریت]</small></div>
+        <div class="header-left">
+            <a href="index.html" class="btn-secondary"><i class='bx bx-home-alt-2'></i> بازگشت به سایت</a>
+            <button id="logout-btn" class="btn-danger" style="display:none;"><i class='bx bx-log-out'></i> خروج</button>
+        </div>
+    </header>
+
+    <!-- بخش اول: فرم ورود امنیتی (شبیه‌ساز گیت محافظتی) -->
+    <div class="main-container login-wrapper" id="login-section">
+        <div class="login-card">
+            <h2>ورود به بخش مدیریت</h2>
+            <div class="form-group">
+                <label>نام کاربری ادمین:</label>
+                <input type="text" id="login-username" placeholder="Username" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>رمز عبور عبور:</label>
+                <input type="password" id="login-password" placeholder="••••••••" autocomplete="off">
+            </div>
+            <button id="login-submit-btn" class="btn-primary" style="justify-content: center;">ورود به پنل <i class='bx bx-log-in-circle'></i></button>
+        </div>
+    </div>
+
+    <!-- بخش دوم: ساختار پنل ادمین اصلی (پس از احراز هویت موفق) -->
+    <div class="main-container admin-panel-container" id="admin-main-panel">
+        <div class="admin-layout">
+            
+            <!-- سایدبار کنترل پنل -->
+            <aside class="admin-sidebar">
+                <h2>میز کار ادمین</h2>
+                <button class="admin-menu-item active" id="menu-btn-add"><i class='bx bx-plus-circle'></i> افزودن انیمه جدید</button>
+                <button class="admin-menu-item" id="menu-btn-list"><i class='bx bx-list-ul'></i> مدیریت و لیست انیمه‌ها</button>
+            </aside>
+
+            <!-- محتوای داینامیک پنل -->
+            <main class="admin-main-content">
+                
+                <!-- فرم افزودن و ویرایش انیمه -->
+                <section id="admin-section-form">
+                    <h2 id="form-section-title" style="margin-bottom: 25px;"><i class='bx bx-plus text-gold'></i> افزودن انیمه جدید به دیتابیس</h2>
+                    <input type="hidden" id="edit-anime-id" value=""> <!-- هیدن فیلد برای مود ویرایش -->
+
+                    <div class="admin-form-grid">
+                        <div class="admin-form-group">
+                            <label>نام انیمه (زبان اصلی / انگلیسی)</label>
+                            <input type="text" id="anime-title" placeholder="مثال: One Piece" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>نام انیمه به فارسی</label>
+                            <input type="text" id="anime-fa-title" placeholder="مثال: وان پیس" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>نوع انیمه</label>
+                            <select id="anime-type">
+                                <option value="سریالی">سریالی</option>
+                                <option value="سینمایی">سینمایی</option>
+                                <option value="OVA">OVA</option>
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>وضعیت پخش</label>
+                            <select id="anime-status">
+                                <option value="در حال پخش">در حال پخش</option>
+                                <option value="اتمام یافته">اتمام یافته</option>
+                                <option value="بزودی">بزودی</option>
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>سال ساخت</label>
+                            <input type="text" id="anime-year" placeholder="مثال: ۲۰۲۶" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>نمره انیمه (امتیاز از 10)</label>
+                            <input type="number" id="anime-rating" placeholder="مثال: 8.9" step="0.1" min="0" max="10" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>نوع صوت (زبان)</label>
+                            <select id="anime-audio">
+                                <option value="both">هر دو (دوبله فارسی + زیرنویس)</option>
+                                <option value="subbed">زیرنویس فارسی</option>
+                                <option value="dubbed">دوبله فارسی</option>
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>روز پخش در جدول هفتگی</label>
+                            <select id="anime-day">
+                                <option value="امروز">امروز</option>
+                                <option value="شنبه">شنبه</option>
+                                <option value="یکشنبه">یکشنبه</option>
+                                <option value="دوشنبه">دوشنبه</option>
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>لینک کاور / پوستر عمودی (Image URL)</label>
+                            <input type="text" id="anime-poster" placeholder="https://site.com/poster.jpg" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>لینک بنر افقی بالای صفحه (Image URL)</label>
+                            <input type="text" id="anime-banner" placeholder="https://site.com/banner.jpg" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>ژانرها (با کاما جدا کنید)</label>
+                            <input type="text" id="anime-genres" placeholder="مثال: اکشن, فانتزی, ماجراجویی" required>
+                        </div>
+                        <div class="admin-form-group full-width">
+                            <label>خلاصه داستان انیمه</label>
+                            <textarea id="anime-description" rows="4" placeholder="توضیحات کامل درباره داستان انیمه..." required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- بخش مدیریت قسمت‌ها (لینک پخش و لینک دانلود) -->
+                    <div class="episodes-manager-container">
+                        <h3 style="font-size:16px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
+                            <span><i class='bx bx-movie'></i> مدیریت قسمت‌ها و لینک‌ها</span>
+                            <button type="button" class="btn-secondary" id="add-ep-row-btn" style="padding:6px 12px; font-size:12px;"><i class='bx bx-plus'></i> افزودن قسمت جدید</button>
+                        </h3>
+                        <div id="admin-episodes-list">
+                            <!-- ردیف‌های قسمت‌ها به صورت داینامیک توسط جاوااسکریپت اینجا ساخته می‌شوند -->
+                        </div>
+                        <p style="font-size:11px; color:var(--text-gray); margin-top:10px;"><i class='bx bx-info-circle'></i> در صورت عدم وارد کردن لینک دانلود، دکمه دانلود بدون هیچ خطایی برای آن قسمت نمایش داده نخواهد شد.</p>
+                    </div>
+
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <button type="button" class="btn-primary" id="save-anime-btn"><i class='bx bx-save'></i> ذخیره و ثبت نهایی انیمه</button>
+                        <button type="button" class="btn-secondary" id="cancel-edit-btn" style="display:none;">انصراف</button>
+                    </div>
+                </section>
+
+                <!-- جدول مدیریت انیمه‌های موجود (حذف و ویرایش) -->
+                <section id="admin-section-list" style="display: none;">
+                    <h2><i class='bx bx-grid-alt text-gold'></i> انیمه‌های ثبت شده در دیتابیس</h2>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>پوستر</th>
+                                    <th>نام اصلی</th>
+                                    <th>نام فارسی</th>
+                                    <th>امتیاز</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body">
+                                <!-- سطرها داینامیک لود می‌شوند -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="db.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

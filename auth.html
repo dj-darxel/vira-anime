@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود و عضویت | ViraAnime</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <a href="index.html" class="back-to-home-btn"><i class='bx bx-right-arrow-alt'></i> بازگشت به خانه</a>
+
+    <section class="auth-container">
+        <div class="auth-box">
+            <div class="logo auth-logo">Vira<span>Anime</span></div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tab-login">ورود</button>
+                <button class="auth-tab-btn" id="tab-register">ثبت‌نام</button>
+            </div>
+
+            <form id="login-form" class="auth-form" onsubmit="event.preventDefault(); alert('خوش آمدید! ورود با موفقیت انجام شد.'); window.location.href='index.html';">
+                <div class="input-group">
+                    <label><i class='bx bx-envelope'></i> ایمیل یا نام کاربری</label>
+                    <input type="text" placeholder="مثال: vira_otaku" required>
+                </div>
+                <div class="input-group">
+                    <label><i class='bx bx-lock-alt' ></i> رمز عبور</label>
+                    <input type="password" placeholder="******" required>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me"><input type="checkbox"> مرا به خاطر بسپار</label>
+                    <a href="#" class="forgot-pass">رمز عبور را فراموش کرده‌ام؟</a>
+                </div>
+                <button type="submit" class="btn-primary auth-submit-btn">ورود به حساب کاربری</button>
+            </form>
+
+            <form id="register-form" class="auth-form hidden" onsubmit="event.preventDefault(); alert('ثبت‌نام شما با موفقیت انجام شد!'); window.location.href='index.html';">
+                <div class="input-group">
+                    <label><i class='bx bx-user' ></i> نام کاربری</label>
+                    <input type="text" placeholder="مثال: vira_otaku" required>
+                </div>
+                <div class="input-group">
+                    <label><i class='bx bx-envelope'></i> آدرس ایمیل</label>
+                    <input type="email" placeholder="example@gmail.com" required>
+                </div>
+                <div class="input-group">
+                    <label><i class='bx bx-lock-alt' ></i> رمز عبور</label>
+                    <input type="password" placeholder="حداقل ۶ کاراکتر" required>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me"><input type="checkbox" required> قوانین سایت را می‌پذیرم</label>
+                </div>
+                <button type="submit" class="btn-primary auth-submit-btn" style="background: var(--blue-neon); box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);">ایجاد حساب کاربری</button>
+            </form>
+
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tabLogin = document.getElementById("tab-login");
+            const tabRegister = document.getElementById("tab-register");
+            const loginForm = document.getElementById("login-form");
+            const registerForm = document.getElementById("register-form");
+
+            tabLogin.addEventListener("click", () => {
+                tabLogin.classList.add("active");
+                tabRegister.classList.remove("active");
+                loginForm.classList.remove("hidden");
+                registerForm.classList.add("hidden");
+            });
+
+            tabRegister.addEventListener("click", () => {
+                tabRegister.classList.add("active");
+                tabLogin.classList.remove("active");
+                registerForm.classList.remove("hidden");
+                loginForm.classList.add("hidden");
+            });
+        });
+    </script>
+</body>
+</html>

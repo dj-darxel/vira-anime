@@ -1,0 +1,186 @@
+:root {
+    --bg-main: #06070d;
+    --bg-card: rgba(20, 18, 33, 0.6);
+    --purple-neon: #a855f7;
+    --blue-neon: #06b6d4;
+    --text-white: #ffffff;
+    --text-gray: #9ca3af;
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --success: #10b981;
+    --danger: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, sans-serif;
+    transition: all 0.25s ease;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-white);
+    overflow-x: hidden;
+}
+
+/* اسکرول‌بار نئونی */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--purple-neon); border-radius: 10px; }
+
+/* هدر شیشه‌ای و بسیار عریض دسکتاپ */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(6, 7, 13, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 15px 4%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.logo { font-size: 26px; font-weight: 900; color: var(--text-white); cursor: pointer; }
+.logo span { color: var(--purple-neon); text-shadow: 0 0 15px var(--purple-neon); }
+
+.nav-menu { display: flex; gap: 30px; align-items: center; }
+.nav-link { color: var(--text-gray); text-decoration: none; font-size: 15px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+.nav-link:hover, .nav-link.active { color: var(--blue-neon); text-shadow: 0 0 10px var(--blue-neon); }
+
+.menu-toggle { display: none; font-size: 28px; color: var(--text-white); cursor: pointer; }
+
+.header-left { display: flex; align-items: center; gap: 15px; }
+.search-box { position: relative; display: flex; align-items: center; }
+.search-box input { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); padding: 10px 15px 10px 45px; border-radius: 30px; color: white; outline: none; width: 220px; font-size: 14px; }
+.search-box input:focus { border-color: var(--blue-neon); width: 280px; background: rgba(255, 255, 255, 0.08); }
+.search-box button { position: absolute; left: 15px; background: none; border: none; color: var(--text-gray); cursor: pointer; font-size: 18px; }
+
+.user-auth-btn { background: linear-gradient(45deg, var(--purple-neon), var(--blue-neon)); color: white; text-decoration: none; padding: 10px 22px; border-radius: 30px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2); }
+.user-auth-btn:hover { box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4); transform: translateY(-2px); }
+
+/* بنر اصلی فوق دسکتاپ (Hero) */
+.hero-banner { position: relative; width: 100%; height: 75vh; display: flex; align-items: center; padding: 0 6%; overflow: hidden; }
+.hero-bg { position: absolute; top: 0; right: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transform: scale(1.02); }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to left, rgba(6, 7, 13, 0.95) 25%, rgba(6, 7, 13, 0.7) 60%, transparent 100%), linear-gradient(to top, var(--bg-main) 0%, transparent 50%); z-index: -1; }
+.hero-content { max-width: 700px; }
+.hero-badge { background: rgba(6, 182, 212, 0.15); color: var(--blue-neon); border: 1px solid rgba(6, 182, 212, 0.3); padding: 6px 14px; border-radius: 20px; font-size: 12px; margin-bottom: 20px; display: inline-block; font-weight: bold; }
+.hero-content h1 { font-size: 48px; margin-bottom: 15px; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.hero-meta { display: flex; gap: 20px; color: var(--text-gray); font-size: 14px; margin-bottom: 20px; align-items: center; }
+.text-gold { color: #facc15; }
+.hero-desc { color: #cbd5e1; font-size: 16px; line-height: 1.8; margin-bottom: 30px; text-align: justify; }
+.hero-actions { display: flex; gap: 15px; }
+
+/* دکمه‌های کاستوم */
+.btn-primary { background: var(--purple-neon); color: white; text-decoration: none; padding: 12px 30px; border-radius: 10px; font-weight: bold; display: flex; align-items: center; gap: 8px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3); }
+.btn-primary:hover { box-shadow: 0 0 30px var(--purple-neon); transform: translateY(-2px); }
+.btn-secondary { background: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--glass-border); padding: 12px 26px; border-radius: 10px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--text-gray); }
+.btn-danger { background: var(--danger); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.btn-danger:hover { box-shadow: 0 0 15px var(--danger); }
+
+/* کانتینر اصلی صفحات و گرید کارت‌ها */
+.main-container { max-width: 1400px; width: 90%; margin: 50px auto; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-right: 4px solid var(--purple-neon); padding-right: 15px; }
+.section-header h2 { font-size: 24px; display: flex; align-items: center; gap: 10px; font-weight: 800; }
+.section-header h2 i { color: var(--blue-neon); }
+.view-all { color: var(--purple-neon); text-decoration: none; font-size: 14px; font-weight: bold; }
+
+/* گرید انیمه‌ها در کامپیوترهای بزرگ کاملاً عریض است */
+.anime-grid, .schedule-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; }
+.anime-card { background: var(--bg-card); border-radius: 16px; overflow: hidden; cursor: pointer; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); position: relative; }
+.anime-card:hover { transform: translateY(-10px); border-color: var(--blue-neon); box-shadow: 0 10px 25px rgba(6, 182, 212, 0.15); }
+.card-thumb { position: relative; width: 100%; height: 290px; overflow: hidden; }
+.card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.anime-card:hover .card-thumb img { transform: scale(1.08); }
+.badge-ep { position: absolute; bottom: 12px; right: 12px; background: var(--blue-neon); color: #000; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 6px; box-shadow: 0 2px 8px rgba(6, 182, 212, 0.4); }
+.badge-rating { position: absolute; top: 12px; left: 12px; background: rgba(6, 7, 13, 0.85); color: #facc15; font-size: 12px; padding: 4px 10px; border-radius: 6px; font-weight: bold; border: 1px solid rgba(255,255,255,0.05); }
+.badge-audio { position: absolute; top: 12px; right: 12px; background: rgba(168, 85, 247, 0.9); color: white; font-size: 11px; padding: 4px 10px; border-radius: 6px; font-weight: bold; }
+.card-body { padding: 18px; }
+.card-body h3 { font-size: 16px; margin-bottom: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 700; }
+.card-genres { display: flex; flex-wrap: wrap; gap: 5px; }
+.card-genres span { font-size: 11px; color: var(--text-gray); background: rgba(255, 255, 255, 0.05); padding: 3px 8px; border-radius: 6px; }
+
+/* تب‌های جدول پخش هفتگی */
+.schedule-tabs { display: flex; gap: 12px; margin-bottom: 30px; background: rgba(255, 255, 255, 0.02); padding: 8px; border-radius: 14px; border: 1px solid var(--glass-border); width: fit-content; }
+.tab-btn { background: none; border: none; color: var(--text-gray); padding: 12px 24px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 14px; }
+.tab-btn.active { background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2)); color: var(--blue-neon); border: 1px solid rgba(6, 182, 212, 0.3); }
+
+/* ساختار صفحه ادمین کاملاً فلت و تمیز دسکتاپ */
+.admin-layout { display: grid; grid-template-columns: 320px 1fr; gap: 40px; }
+.admin-sidebar { background: var(--bg-card); border: 1px solid var(--glass-border); padding: 25px; border-radius: 20px; height: fit-content; }
+.admin-sidebar h2 { font-size: 20px; color: var(--purple-neon); margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; }
+.admin-menu-item { display: flex; align-items: center; gap: 12px; width: 100%; background: none; border: none; color: var(--text-gray); padding: 14px 20px; border-radius: 10px; text-align: right; font-weight: bold; cursor: pointer; margin-bottom: 8px; }
+.admin-menu-item.active, .admin-menu-item:hover { background: rgba(255,255,255,0.04); color: var(--blue-neon); }
+.admin-main-content { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); padding: 35px; border-radius: 20px; }
+
+.admin-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+.admin-form-group { display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.admin-form-group.full-width { grid-column: 1 / -1; }
+.admin-form-group input, .admin-form-group select, .admin-form-group textarea { background: #0d0f17; border: 1px solid var(--glass-border); padding: 12px 16px; border-radius: 10px; color: white; outline: none; font-size: 14px; }
+.admin-form-group input:focus, .admin-form-group select:focus, .admin-form-group textarea:focus { border-color: var(--purple-neon); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
+
+/* مدیریت بخش قسمت‌ها در پنل ادمین */
+.episodes-manager-container { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid var(--glass-border); margin-top: 15px; }
+.admin-ep-row { display: grid; grid-template-columns: 70px 1fr 1fr 50px; gap: 15px; align-items: center; margin-bottom: 12px; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
+
+/* جدول لیست انیمه‌ها برای حذف و ویرایش */
+.admin-table-wrapper { overflow-x: auto; margin-top: 20px; }
+.admin-table { width: 100%; border-collapse: collapse; text-align: right; font-size: 14px; }
+.admin-table th, .admin-table td { padding: 15px; border-bottom: 1px solid var(--glass-border); }
+.admin-table th { color: var(--purple-neon); font-weight: 800; }
+.admin-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+.admin-table img { width: 45px; height: 60px; object-fit: cover; border-radius: 6px; }
+
+/* صفحه پخش آنلاین و بخش دانلود دسکتاپ */
+.anime-player-section { display: grid; grid-template-columns: 2.8fr 1.2fr; gap: 40px; }
+.download-section-box { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; margin-top: 40px; }
+.download-section-box h3 { font-size: 18px; margin-bottom: 20px; color: var(--blue-neon); display: flex; align-items: center; gap: 10px; }
+.download-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #0d0f17; border: 1px solid var(--glass-border); border-radius: 12px; margin-bottom: 12px; }
+.download-row span { font-weight: bold; font-size: 14px; }
+
+/* ریسپانسیو و بهینه‌سازی تبلت و موبایل */
+@media (max-width: 1200px) {
+    .admin-layout { grid-template-columns: 1fr; gap: 25px; }
+    .anime-player-section { grid-template-columns: 1fr; gap: 30px; }
+}
+
+@media (max-width: 1024px) {
+    .menu-toggle { display: block; order: 1; }
+    .logo { order: 2; font-size: 22px; }
+    .header-left { order: 3; gap: 10px; }
+    .nav-menu {
+        position: fixed; top: 68px; right: -100%;
+        width: 260px; height: calc(100vh - 68px);
+        background: rgba(13, 15, 23, 0.98); backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column; align-items: flex-start;
+        padding: 40px 30px; gap: 25px; z-index: 999;
+        border-left: 1px solid var(--glass-border);
+    }
+    .nav-menu.active { right: 0; }
+    .search-box input { width: 140px; }
+    .search-box input:focus { width: 180px; }
+    .user-auth-btn span { display: none; }
+    .admin-form-grid { grid-template-columns: 1fr; }
+    .anime-details-container { flex-direction: column; text-align: center; }
+    .anime-poster-wrapper { width: 180px; height: 260px; }
+    .anime-genres-list, .anime-stats { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+    .hero-banner { height: auto; padding: 50px 5% 30px 5%; }
+    .hero-content h1 { font-size: 28px; }
+    .hero-actions { flex-direction: column; width: 100%; }
+    .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; justify-content: center; }
+    .anime-grid, .schedule-grid { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 15px; }
+    .card-thumb { height: 210px; }
+    .card-body { padding: 12px; }
+    .card-body h3 { font-size: 14px; }
+    .admin-ep-row { grid-template-columns: 1fr; gap: 10px; }
+    .download-row { flex-direction: column; gap: 12px; text-align: center; padding: 20px; }
+    .download-row .btn-secondary { width: 100%; justify-content: center; }
+}
