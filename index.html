@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ویرا انیمه | ViraAnime - مرجع پخش و دانلود انیمه</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">Vira<span>Anime</span></div>
+        
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link active"><i class='bx bx-home-alt-2'></i> خانه</a>
+            <a href="filter.html" class="nav-link"><i class='bx bx-compass'></i> کشف انیمه</a>
+            <a href="#" class="nav-link"><i class='bx bx-calendar'></i> جدول پخش</a>
+            <a href="#" class="nav-link"><i class='bx bx-movie-play'></i> سینمایی‌ها</a>
+        </nav>
+
+        <div class="header-left">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="جستجوی انیمه، ژانر...">
+                <button id="search-btn"><i class='bx bx-search'></i></button>
+            </div>
+            <a href="auth.html" class="user-auth-btn"><i class='bx bx-user-circle'></i> ورود / ثبت‌نام</a>
+        </div>
+    </header>
+
+    <section class="hero-banner">
+        <div class="hero-overlay"></div>
+        <img src="https://wallpapercave.com/wp/wp8336332.jpg" alt="Jujutsu Kaisen" class="hero-bg">
+        <div class="hero-content">
+            <span class="hero-badge"><i class='bx bxs-hot'></i> پیشنهاد ویژه فصل</span>
+            <h1>Jujutsu Kaisen (فصل دوم)</h1>
+            <div class="hero-meta">
+                <span><i class='bx bxs-star text-gold'></i> 8.8</span>
+                <span>سریالی</span>
+                <span>۲۰۲۳</span>
+                <span>اکشن، فانتزی، ماوراءطبیعی</span>
+            </div>
+            <p class="hero-desc">
+                یوجی ایتادوری، دانش‌آموز دبیرستانی با قدرت بدنی خارق‌العاده، برای نجات دوستش انگشت یک نفرین رتبه بالا را می‌خورد و وارد دنیای تاریک جادوگران جوجوتسو می‌شود...
+            </p>
+            <div class="hero-actions">
+                <a href="anime.html?id=3" class="btn-primary"><i class='bx bx-play-circle'></i> تماشای آنلاین</a>
+                <button class="btn-secondary"><i class='bx bx-bookmark'></i> افزودن به لیست</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-container">
+        <div class="section-header">
+            <h2><i class='bx bx-time-five'></i> زمان پخش قسمت‌های جدید</h2>
+        </div>
+        <div class="schedule-tabs">
+            <button class="tab-btn active">امروز</button>
+            <button class="tab-btn">شنبه</button>
+            <button class="tab-btn">یکشنبه</button>
+            <button class="tab-btn">دوشنبه</button>
+            <button class="tab-btn">سه شنبه</button>
+        </div>
+        <div class="schedule-grid" id="schedule-container">
+            </div>
+    </section>
+
+    <main class="main-container">
+        <div class="section-header">
+            <h2><i class='bx bx-cloud-download'></i> آخرین انیمه‌های بروز شده</h2>
+            <a href="filter.html" class="view-all">مشاهده همه <i class='bx bx-chevron-left'></i></a>
+        </div>
+
+        <div class="anime-grid" id="latest-anime-grid">
+            </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">Vira<span>Anime</span></div>
+            <p>ویرا انیمه، مرجع بزرگ پخش آنلاین و دانلود انیمه با زیرنویس چسبیده و دوبله فارسی بدون سانسور.</p>
+            <div class="social-links">
+                <a href="#"><i class='bx bxl-telegram'></i></a>
+                <a href="#"><i class='bx bxl-instagram'></i></a>
+                <a href="#"><i class='bx bxl-discord-alt'></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© ۲۰۲۶ ViraAnime. تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <script src="db.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
